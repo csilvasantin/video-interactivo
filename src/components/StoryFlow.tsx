@@ -64,38 +64,56 @@ export function StoryFlow({ story }: StoryFlowProps) {
   return (
     <div className="story-flow">
       {isAirport ? (
-        <AirportGlobe title={currentNode.title} />
+        <>
+          {/* Airport: Globe with flight selection overlaid */}
+          <div className="airport-globe-wrapper">
+            <AirportGlobe title={currentNode.title} />
+            {currentNode.decisions && (
+              <div className="globe-flight-choices">
+                {currentNode.decisions.map((decision, index) => (
+                  <button
+                    key={decision.nextNodeId}
+                    className="flight-choice-btn"
+                    onClick={() => handleDecision(index)}
+                  >
+                    {decision.label}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+          <VideoWall currentNodeId={currentNode.id} />
+        </>
       ) : (
-        <div className="story-header">
-          <h2 className="scene-title">{currentNode.title}</h2>
-          {canGoBack && (
-            <button className="back-btn" onClick={goBack}>
-              ← Volver
-            </button>
-          )}
-        </div>
+        <>
+          <div className="story-header">
+            <h2 className="scene-title">{currentNode.title}</h2>
+            {canGoBack && (
+              <button className="back-btn" onClick={goBack}>
+                ← Volver
+              </button>
+            )}
+          </div>
+          <VideoWall currentNodeId={currentNode.id} />
+          <FlightMap currentNodeId={currentNode.id} />
+          <div className="video-wrapper">
+            <VideoPlayer
+              nodeId={currentNode.id}
+              title={currentNode.title}
+              onTimeUpdate={handleTimeUpdate}
+              onEnded={handleVideoEnded}
+              paused={showDecisions}
+            />
+            {currentNode.decisions && (
+              <DecisionOverlay
+                decisions={currentNode.decisions}
+                onDecision={handleDecision}
+                visible={showDecisions}
+              />
+            )}
+          </div>
+        </>
       )}
-
-      <VideoWall currentNodeId={currentNode.id} />
-
-      <FlightMap currentNodeId={currentNode.id} />
-
-      <div className="video-wrapper">
-        <VideoPlayer
-          nodeId={currentNode.id}
-          title={currentNode.title}
-          onTimeUpdate={handleTimeUpdate}
-          onEnded={handleVideoEnded}
-          paused={showDecisions}
-        />
-        {currentNode.decisions && (
-          <DecisionOverlay
-            decisions={currentNode.decisions}
-            onDecision={handleDecision}
-            visible={showDecisions}
-          />
-        )}
-      </div>
 
       <ProgressBar story={story} history={history} currentNodeId={currentNode.id} />
     </div>

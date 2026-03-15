@@ -69,7 +69,7 @@ export function IntroVideo({ onFinished, onStartMusic, onToggleMute, muted }: In
           {/* AENA logo + aeropuertos para ti */}
           <div style={{
             position: 'absolute',
-            bottom: '3.5rem',
+            top: '1.5rem',
             display: 'flex',
             alignItems: 'center',
             gap: '0.6rem',

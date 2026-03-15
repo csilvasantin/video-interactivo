@@ -147,6 +147,42 @@ body {
   text-transform: uppercase;
 }
 
+/* Flight choice buttons overlaid on globe */
+.airport-globe-wrapper {
+  position: relative;
+}
+
+.globe-flight-choices {
+  position: absolute;
+  bottom: 0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.5rem;
+  z-index: 5;
+}
+
+.flight-choice-btn {
+  background: rgba(15, 14, 23, 0.85);
+  border: 2px solid var(--accent);
+  color: var(--text-primary);
+  padding: 0.3rem 0.6rem;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.35rem;
+  cursor: pointer;
+  transition: all 0.1s;
+  box-shadow: 3px 3px 0 var(--pixel-shadow);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.flight-choice-btn:hover {
+  background: var(--accent);
+  color: var(--bg-primary);
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--pixel-shadow);
+}
+
 .globe-subtitle {
   font-size: 0.5rem;
   color: #66ccff;
