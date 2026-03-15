@@ -115,6 +115,47 @@ body {
   overflow: hidden;
 }
 
+/* Airport Globe */
+.airport-globe {
+  position: relative;
+  border: var(--pixel) solid var(--accent);
+  box-shadow: var(--pixel) var(--pixel) 0 var(--pixel-shadow);
+  background: #1a1030;
+  overflow: hidden;
+}
+
+.globe-canvas {
+  width: 100%;
+  display: block;
+}
+
+.globe-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding-bottom: 0.8rem;
+  pointer-events: none;
+}
+
+.globe-title {
+  font-size: 0.8rem;
+  color: var(--accent);
+  text-shadow: 2px 2px 0 #000, 0 0 10px #ff880066;
+  text-transform: uppercase;
+}
+
+.globe-subtitle {
+  font-size: 0.5rem;
+  color: #66ccff;
+  text-shadow: 1px 1px 0 #000;
+  margin-top: 0.3rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
 .story-header {
   display: flex;
   align-items: center;

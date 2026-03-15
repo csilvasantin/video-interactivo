@@ -7,6 +7,7 @@ import { EndScreen } from './EndScreen';
 import { ProgressBar } from './ProgressBar';
 import { VideoWall } from './VideoWall';
 import { FlightMap } from './FlightMap';
+import { AirportGlobe } from './AirportGlobe';
 
 interface StoryFlowProps {
   story: StoryGraph;
@@ -58,16 +59,22 @@ export function StoryFlow({ story }: StoryFlowProps) {
     );
   }
 
+  const isAirport = currentNode.id === 'airport';
+
   return (
     <div className="story-flow">
-      <div className="story-header">
-        <h2 className="scene-title">{currentNode.title}</h2>
-        {canGoBack && (
-          <button className="back-btn" onClick={goBack}>
-            ← Volver
-          </button>
-        )}
-      </div>
+      {isAirport ? (
+        <AirportGlobe title={currentNode.title} />
+      ) : (
+        <div className="story-header">
+          <h2 className="scene-title">{currentNode.title}</h2>
+          {canGoBack && (
+            <button className="back-btn" onClick={goBack}>
+              ← Volver
+            </button>
+          )}
+        </div>
+      )}
 
       <VideoWall currentNodeId={currentNode.id} />
 
