@@ -170,6 +170,35 @@ export function AenaSplash({ onFinished }: AenaSplashProps) {
         ctx.fillText(subText, w / 2, subY + 1);
       }
 
+      // Second subtitle line - appears after AEROPUERTOS
+      const line2Y = subY + barH + 14;
+      const fadeIn2 = t < 0.45 ? 0 : Math.min(1, (t - 0.45) / 0.2);
+
+      if (fadeIn2 > 0) {
+        ctx.font = `7px "Press Start 2P", monospace`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'top';
+
+        // "y el último avión que ha aterrizado"
+        ctx.fillStyle = `rgba(200, 200, 200, ${fadeIn2})`;
+        ctx.fillText('y el ultimo avion que ha aterrizado', w / 2, line2Y);
+
+        // "La aventura gráfica" - gold, bigger
+        const line3Y = line2Y + 16;
+        const fadeIn3 = t < 0.55 ? 0 : Math.min(1, (t - 0.55) / 0.2);
+
+        if (fadeIn3 > 0) {
+          ctx.font = `9px "Press Start 2P", monospace`;
+          ctx.fillStyle = `rgba(255, 215, 0, ${fadeIn3})`;
+          ctx.fillText('La aventura grafica', w / 2, line3Y);
+
+          // Underline
+          const ulW = 160;
+          ctx.fillStyle = `rgba(255, 215, 0, ${fadeIn3 * 0.5})`;
+          ctx.fillRect((w - ulW) / 2, line3Y + 14, ulW, 2);
+        }
+      }
+
       // Fade out in last 0.8s
       if (t > 0.84) {
         const fadeOut = (t - 0.84) / 0.16;

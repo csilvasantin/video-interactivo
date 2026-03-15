@@ -6,6 +6,7 @@ import { DecisionOverlay } from './DecisionOverlay';
 import { EndScreen } from './EndScreen';
 import { ProgressBar } from './ProgressBar';
 import { VideoWall } from './VideoWall';
+import { FlightMap } from './FlightMap';
 
 interface StoryFlowProps {
   story: StoryGraph;
@@ -84,6 +85,8 @@ export function StoryFlow({ story }: StoryFlowProps) {
           />
         )}
       </div>
+
+      <FlightMap currentNodeId={currentNode.id} />
 
       <ProgressBar story={story} history={history} currentNodeId={currentNode.id} />
 
