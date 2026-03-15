@@ -349,7 +349,7 @@ export function FlightMap({ currentNodeId }: FlightMapProps) {
         const angle = Math.atan2(dy, dx);
         ctx.save();
         ctx.translate(px, py);
-        ctx.rotate(angle + Math.PI);
+        ctx.rotate(angle);
         ctx.fillStyle = '#ffffff';
         ctx.font = '14px sans-serif';
         ctx.textAlign = 'center';
