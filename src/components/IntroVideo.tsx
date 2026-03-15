@@ -66,6 +66,72 @@ export function IntroVideo({ onFinished, onStartMusic, onToggleMute, muted }: In
           }}>
             Click para empezar
           </p>
+          {/* AENA logo + aeropuertos para ti */}
+          <div style={{
+            position: 'absolute',
+            bottom: '3.5rem',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.6rem',
+          }}>
+            {/* Pixel art AENA green arrow/triangle logo */}
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(11, 3px)',
+              gridTemplateRows: 'repeat(11, 3px)',
+              gap: '0px',
+            }}>
+              {[
+                0,0,0,0,0,1,0,0,0,0,0,
+                0,0,0,0,1,1,0,0,0,0,0,
+                0,0,0,1,1,1,0,0,0,0,0,
+                0,0,1,1,1,1,0,0,0,0,0,
+                0,1,1,1,1,1,1,0,0,0,0,
+                1,1,1,1,1,1,1,1,1,1,1,
+                0,1,1,1,1,1,1,0,0,0,0,
+                0,0,1,1,1,1,0,0,0,0,0,
+                0,0,0,1,1,1,0,0,0,0,0,
+                0,0,0,0,1,1,0,0,0,0,0,
+                0,0,0,0,0,1,0,0,0,0,0,
+              ].map((v, i) => (
+                <div key={i} style={{
+                  width: 3,
+                  height: 3,
+                  background: v ? '#a4c520' : 'transparent',
+                }} />
+              ))}
+            </div>
+            <span style={{
+              fontFamily: "'Press Start 2P', monospace",
+              fontSize: '0.7rem',
+              color: '#ffffff',
+              fontWeight: 'bold',
+              letterSpacing: '2px',
+            }}>
+              aena
+            </span>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '1px' }}>
+              <span style={{
+                fontFamily: "'Press Start 2P', monospace",
+                fontSize: '0.3rem',
+                color: '#a4c520',
+                letterSpacing: '1px',
+              }}>
+                aeropuertos
+              </span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                <span style={{
+                  fontFamily: "'Press Start 2P', monospace",
+                  fontSize: '0.3rem',
+                  color: '#a4c520',
+                  letterSpacing: '1px',
+                }}>
+                  para ti
+                </span>
+                <span style={{ fontSize: '0.4rem', color: '#a4c520' }}>✈</span>
+              </div>
+            </div>
+          </div>
           <div style={{
             position: 'absolute',
             bottom: '1.2rem',
