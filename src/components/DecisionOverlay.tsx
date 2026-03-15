@@ -93,7 +93,7 @@ export function DecisionOverlay({ decisions, onDecision, visible }: DecisionOver
               key={decision.nextNodeId}
               className="decision-btn"
               onClick={() => onDecision(index)}
-              style={{ animationDelay: `${index * 0.15}s` }}
+              style={{ animationDelay: `${index * 0.05}s` }}
             >
               {decision.label}
               {country && <PixelFlag country={country} />}

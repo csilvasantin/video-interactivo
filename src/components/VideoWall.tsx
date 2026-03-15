@@ -16,7 +16,7 @@ interface CountryAds {
 const countryAdsMap: Record<string, CountryAds> = {
   japan: {
     country: 'Japón',
-    banner: { text: '🇯🇵 BIENVENIDOS — VUELO NRT→MAD — PUERTA B12 — RECOGIDA EQUIPAJE CINTA 4', color: '#ff6b9d' },
+    banner: { text: '🇯🇵 BIENVENIDOS — VUELO NRT→PMI — PUERTA B12 — RECOGIDA EQUIPAJE CINTA 4', color: '#ff6b9d' },
     ads: [
       { emoji: '🗼', title: 'Visit Tokyo Tower', subtitle: 'Vistas de 360°', color: '#ff6b9d' },
       { emoji: '🍣', title: 'Tsukiji Market', subtitle: 'El mejor sushi del mundo', color: '#ff5252' },
@@ -40,7 +40,7 @@ const countryAdsMap: Record<string, CountryAds> = {
   },
   dubai: {
     country: 'Dubai',
-    banner: { text: '🇦🇪 BIENVENIDOS — VUELO DXB→MAD — PUERTA A08 — RECOGIDA EQUIPAJE CINTA 7', color: '#ffd740' },
+    banner: { text: '🇦🇪 BIENVENIDOS — VUELO DXB→PMI — PUERTA A08 — RECOGIDA EQUIPAJE CINTA 7', color: '#ffd740' },
     ads: [
       { emoji: '🏗️', title: 'Burj Khalifa', subtitle: '828m de altura', color: '#ffd740' },
       { emoji: '🏜️', title: 'Desert Safari', subtitle: 'Aventura en 4x4', color: '#ff9800' },
@@ -64,7 +64,7 @@ const countryAdsMap: Record<string, CountryAds> = {
   },
   london: {
     country: 'Londres',
-    banner: { text: '🇬🇧 BIENVENIDOS — VUELO LHR→MAD — PUERTA C15 — RECOGIDA EQUIPAJE CINTA 2', color: '#7c4dff' },
+    banner: { text: '🇬🇧 BIENVENIDOS — VUELO LHR→PMI — PUERTA C15 — RECOGIDA EQUIPAJE CINTA 2', color: '#7c4dff' },
     ads: [
       { emoji: '🎡', title: 'London Eye', subtitle: 'Vista panorámica', color: '#7c4dff' },
       { emoji: '👑', title: 'Buckingham Palace', subtitle: 'Cambio de guardia', color: '#ffd740' },
@@ -86,12 +86,37 @@ const countryAdsMap: Record<string, CountryAds> = {
       { emoji: '🚌', title: 'Double Decker', subtitle: 'Tour en bus rojo', color: '#e53935' },
     ],
   },
+  mallorca: {
+    country: 'Mallorca',
+    banner: { text: '🇪🇸 BIENVENIDOS A PALMA DE MALLORCA — AEROPUERTO SON SANT JOAN — DISFRUTA DE LA ISLA', color: '#ff8c00' },
+    ads: [
+      { emoji: '🏖️', title: 'Playa de Palma', subtitle: 'Arena blanca 6km', color: '#00bcd4' },
+      { emoji: '⛪', title: 'Catedral La Seu', subtitle: 'Gótico mediterráneo', color: '#8d6e63' },
+      { emoji: '🏰', title: 'Castillo Bellver', subtitle: 'Fortaleza circular', color: '#795548' },
+      { emoji: '🚂', title: 'Tren de Sóller', subtitle: 'Ruta panorámica 1912', color: '#ff7043' },
+      { emoji: '🌊', title: 'Cala Mondragó', subtitle: 'Parque Natural', color: '#26c6da' },
+      { emoji: '🧀', title: 'Mercat de l\'Olivar', subtitle: 'Gastronomía local', color: '#ffa726' },
+      { emoji: '⛰️', title: 'Serra Tramuntana', subtitle: 'UNESCO Patrimonio', color: '#66bb6a' },
+      { emoji: '🛥️', title: 'Excursión Cabrera', subtitle: 'Isla paradisíaca', color: '#42a5f5' },
+      { emoji: '🍷', title: 'Bodega Binissalem', subtitle: 'Vinos mallorquines', color: '#e53935' },
+      { emoji: '🏊', title: 'Cala Varques', subtitle: 'Cala escondida', color: '#00e5ff' },
+      { emoji: '🎨', title: 'Fundación Miró', subtitle: 'Arte en Palma', color: '#ec407a' },
+      { emoji: '🚴', title: 'Ruta ciclista', subtitle: 'Cap Formentor', color: '#4caf50' },
+      { emoji: '🦎', title: 'Cuevas del Drach', subtitle: 'Lago subterráneo', color: '#7e57c2' },
+      { emoji: '🍊', title: 'Valldemossa', subtitle: 'Pueblo de Chopin', color: '#ff9800' },
+      { emoji: '⛵', title: 'Puerto Portals', subtitle: 'Marina de lujo', color: '#5c6bc0' },
+      { emoji: '🏝️', title: 'Es Trenc', subtitle: 'Playa virgen', color: '#29b6f6' },
+      { emoji: '🎵', title: 'Jazz Voyeur Club', subtitle: 'Noches de Palma', color: '#ab47bc' },
+      { emoji: '🐟', title: 'Lonja de Palma', subtitle: 'Arquitectura gótica', color: '#78909c' },
+    ],
+  },
 };
 
 function getCountryFromNodeId(nodeId: string): string | null {
   if (nodeId.startsWith('japan')) return 'japan';
   if (nodeId.startsWith('dubai')) return 'dubai';
   if (nodeId.startsWith('london')) return 'london';
+  if (nodeId === 'airport') return 'mallorca';
   return null;
 }
 
