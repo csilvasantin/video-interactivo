@@ -49,6 +49,11 @@ body {
   padding: 1.5rem 1rem;
 }
 
+.app:has(.intro-video) {
+  max-width: 1200px;
+  padding: 1rem 0;
+}
+
 .app-header {
   text-align: center;
   margin-bottom: 1.5rem;
@@ -423,8 +428,8 @@ body {
 /* Intro Video */
 .intro-video {
   position: relative;
-  width: 100%;
-  max-width: 960px;
+  width: 100vw;
+  max-width: 1200px;
   margin: 0 auto;
   overflow: hidden;
   border: var(--pixel) solid var(--accent);
