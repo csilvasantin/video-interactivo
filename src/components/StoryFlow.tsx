@@ -94,8 +94,10 @@ export function StoryFlow({ story }: StoryFlowProps) {
               </button>
             )}
           </div>
+          <div className="airport-globe-wrapper">
+            <FlightMap currentNodeId={currentNode.id} />
+          </div>
           <VideoWall currentNodeId={currentNode.id} />
-          <FlightMap currentNodeId={currentNode.id} />
           <div className="video-wrapper">
             <VideoPlayer
               nodeId={currentNode.id}
