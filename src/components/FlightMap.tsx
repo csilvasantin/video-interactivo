@@ -350,10 +350,20 @@ export function FlightMap({ currentNodeId }: FlightMapProps) {
         ctx.beginPath();
         ctx.arc(px, py, 4, 0, Math.PI * 2);
         ctx.fill();
+
+        // Flip airplane to face direction of travel
+        const dx = (to.x - from.x) * w;
+        const dy = (to.y - from.y) * h;
+        const angle = Math.atan2(dy, dx);
+        ctx.save();
+        ctx.translate(px, py - 8);
+        ctx.rotate(angle);
+        ctx.scale(-1, 1);
         ctx.fillStyle = '#ffffff';
         ctx.font = '14px sans-serif';
         ctx.textAlign = 'center';
-        ctx.fillText('✈', px, py - 8);
+        ctx.fillText('✈', 0, 0);
+        ctx.restore();
       }
 
       // City dots and labels
