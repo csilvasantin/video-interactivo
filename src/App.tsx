@@ -6,6 +6,7 @@ import './styles/app.css';
 
 function App() {
   const [introFinished, setIntroFinished] = useState(false);
+  const [muted, setMuted] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
 
   const startMusic = useCallback(() => {
@@ -13,6 +14,20 @@ function App() {
     if (audio) {
       audio.volume = 0.5;
       audio.play().catch(() => {});
+    }
+  }, []);
+
+  const toggleMute = useCallback(() => {
+    const audio = audioRef.current;
+    if (audio) {
+      if (audio.paused) {
+        audio.volume = 0.5;
+        audio.play().catch(() => {});
+        setMuted(false);
+      } else {
+        audio.pause();
+        setMuted(true);
+      }
     }
   }, []);
 
@@ -26,7 +41,7 @@ function App() {
     return (
       <div className="app">
         <audio ref={audioRef} src={`${import.meta.env.BASE_URL}videos/intro-music.mp3`} loop />
-        <IntroVideo onFinished={() => setIntroFinished(true)} onStartMusic={startMusic} />
+        <IntroVideo onFinished={() => setIntroFinished(true)} onStartMusic={startMusic} onToggleMute={toggleMute} muted={muted} />
       </div>
     );
   }
@@ -41,6 +56,9 @@ function App() {
           🎬 Ver intro
         </button>
       </header>
+      <button className="mute-btn" onClick={toggleMute}>
+        {muted ? '🔇' : '🔊'}
+      </button>
       <main>
         <StoryFlow story={demoStory} />
       </main>

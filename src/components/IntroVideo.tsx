@@ -6,9 +6,11 @@ type Phase = 'waiting' | 'splash' | 'video';
 interface IntroVideoProps {
   onFinished: () => void;
   onStartMusic: () => void;
+  onToggleMute: () => void;
+  muted: boolean;
 }
 
-export function IntroVideo({ onFinished, onStartMusic }: IntroVideoProps) {
+export function IntroVideo({ onFinished, onStartMusic, onToggleMute, muted }: IntroVideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [phase, setPhase] = useState<Phase>('waiting');
 
@@ -89,6 +91,11 @@ export function IntroVideo({ onFinished, onStartMusic }: IntroVideoProps) {
             }
           }}
         />
+      )}
+      {phase !== 'waiting' && (
+        <button className="mute-btn intro-mute" onClick={onToggleMute}>
+          {muted ? '🔇' : '🔊'}
+        </button>
       )}
       <button className="skip-btn" onClick={handleSkip}>
         Saltar intro →

@@ -479,6 +479,35 @@ body {
   text-transform: uppercase;
 }
 
+/* Mute button */
+.mute-btn {
+  position: fixed;
+  bottom: 1rem;
+  left: 1rem;
+  background: var(--bg-card);
+  border: 3px solid var(--pixel-border);
+  color: var(--text-primary);
+  padding: 0.4rem 0.5rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+  z-index: 100;
+  box-shadow: 3px 3px 0 var(--pixel-shadow);
+  transition: all 0.1s;
+  line-height: 1;
+}
+
+.mute-btn:hover {
+  border-color: var(--accent);
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--pixel-shadow);
+}
+
+.intro-mute {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+}
+
 .skip-btn:hover {
   background: var(--text-secondary);
   color: var(--bg-primary);
