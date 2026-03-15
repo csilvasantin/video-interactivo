@@ -132,7 +132,7 @@ export function VideoWall({ currentNodeId }: VideoWallProps) {
   if (count <= 2) cols = count;
   else if (count <= 4) cols = 2;
   else if (count <= 8) cols = 4;
-  else cols = 8;
+  else cols = 9;
 
   return (
     <div className="videowall">

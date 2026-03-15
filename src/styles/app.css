@@ -79,13 +79,13 @@ body {
 }
 
 .replay-intro-btn {
-  margin-top: 0.8rem;
+  margin-top: 0.3rem;
   background: var(--bg-card);
-  border: 3px solid var(--accent2);
+  border: 2px solid var(--accent2);
   color: var(--accent2);
-  padding: 0.4rem 1rem;
+  padding: 0.15rem 0.5rem;
   font-family: 'Press Start 2P', monospace;
-  font-size: 0.45rem;
+  font-size: 0.4rem;
   cursor: pointer;
   transition: all 0.1s;
   box-shadow: 3px 3px 0 var(--pixel-shadow);
@@ -758,7 +758,7 @@ body::after {
   }
 
   .videowall-cts {
-    grid-template-columns: repeat(8, 1fr) !important;
+    grid-template-columns: repeat(9, 1fr) !important;
   }
 
   .preset-buttons {
