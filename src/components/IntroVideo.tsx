@@ -40,7 +40,7 @@ export function IntroVideo({ onFinished }: IntroVideoProps) {
 
   return (
     <div className="intro-video">
-      <audio ref={audioRef} src="/videos/intro-music.mp3" loop />
+      <audio ref={audioRef} src={`${import.meta.env.BASE_URL}videos/intro-music.mp3`} loop />
       {phase === 'waiting' && (
         <div
           style={{
@@ -81,7 +81,7 @@ export function IntroVideo({ onFinished }: IntroVideoProps) {
       {phase === 'video' && (
         <video
           ref={videoRef}
-          src="/videos/intro.mp4"
+          src={`${import.meta.env.BASE_URL}videos/intro.mp4`}
           playsInline
           onEnded={handleEnded}
           style={{ aspectRatio: '16/9', width: '100%', objectFit: 'cover' }}
