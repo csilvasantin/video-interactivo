@@ -1114,3 +1114,23 @@ body::after {
   font-size: 0.4rem;
   line-height: 1.1;
 }
+
+/* === CTS Mosaic Mode (P2 with excursion selected) === */
+.cts-screen-mosaic {
+  overflow: hidden;
+}
+
+.cts-content-mosaic {
+  position: relative;
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
+.cts-mosaic-piece {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}

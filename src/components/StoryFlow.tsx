@@ -48,7 +48,9 @@ export function StoryFlow({ story }: StoryFlowProps) {
     [makeDecision]
   );
 
-  if (isFinished) {
+  const isMallorcaExcursion = currentNode.id.startsWith('mall_');
+
+  if (isFinished && !isMallorcaExcursion) {
     return (
       <EndScreen
         story={story}
@@ -83,6 +85,23 @@ export function StoryFlow({ story }: StoryFlowProps) {
             )}
           </div>
           <VideoWall currentNodeId={currentNode.id} />
+        </>
+      ) : isMallorcaExcursion ? (
+        <>
+          <div className="story-header">
+            <h2 className="scene-title">🏝️ {currentNode.title}</h2>
+            {canGoBack && (
+              <button className="back-btn" onClick={goBack}>
+                ← Volver
+              </button>
+            )}
+          </div>
+          <VideoWall currentNodeId={currentNode.id} />
+          <div style={{ padding: '1rem', textAlign: 'center' }}>
+            <button className="back-btn" onClick={restart} style={{ fontSize: '1rem', padding: '0.5rem 1.5rem' }}>
+              🔄 Volver a empezar
+            </button>
+          </div>
         </>
       ) : (
         <>

@@ -14,6 +14,19 @@ interface CountryAds {
   banner: { text: string; color: string };
 }
 
+// Map mall_ node IDs to their image path
+const mallNodeImageMap: Record<string, { image: string; title: string; subtitle: string; color: string }> = {
+  mall_playa: { image: 'images/mallorca/playa-palma.jpg', title: 'Playa de Palma', subtitle: 'Arena blanca 6km', color: '#00bcd4' },
+  mall_catedral: { image: 'images/mallorca/catedral-seu.jpg', title: 'Catedral La Seu', subtitle: 'Gótico mediterráneo', color: '#8d6e63' },
+  mall_bellver: { image: 'images/mallorca/castillo-bellver.jpg', title: 'Castillo Bellver', subtitle: 'Fortaleza circular', color: '#795548' },
+  mall_soller: { image: 'images/mallorca/tren-soller.jpg', title: 'Tren de Sóller', subtitle: 'Ruta panorámica 1912', color: '#ff7043' },
+  mall_serra: { image: 'images/mallorca/serra-tramuntana.jpg', title: 'Serra Tramuntana', subtitle: 'UNESCO Patrimonio', color: '#66bb6a' },
+  mall_drach: { image: 'images/mallorca/cuevas-drach.jpg', title: 'Cuevas del Drach', subtitle: 'Lago subterráneo', color: '#7e57c2' },
+  mall_valldemossa: { image: 'images/mallorca/valldemossa.jpg', title: 'Valldemossa', subtitle: 'Pueblo de Chopin', color: '#ff9800' },
+  mall_trenc: { image: 'images/mallorca/es-trenc.jpg', title: 'Es Trenc', subtitle: 'Playa virgen', color: '#29b6f6' },
+  mall_portals: { image: 'images/mallorca/puerto-portals.jpg', title: 'Puerto Portals', subtitle: 'Marina de lujo', color: '#5c6bc0' },
+};
+
 const countryAdsMap: Record<string, CountryAds> = {
   japan: {
     country: 'Japón',
@@ -118,6 +131,7 @@ function getCountryFromNodeId(nodeId: string): string | null {
   if (nodeId.startsWith('dubai')) return 'dubai';
   if (nodeId.startsWith('london')) return 'london';
   if (nodeId === 'airport') return 'mallorca';
+  if (nodeId.startsWith('mall_')) return 'mallorca';
   return null;
 }
 
@@ -151,11 +165,17 @@ export function VideoWall({ currentNodeId }: VideoWallProps) {
 
   const totalCTS = data.ads.length;
   const count = totalCTS - disabledCTS.size;
+  const basePath = import.meta.env.BASE_URL;
+
+  // Check if we're on a specific excursion node (mall_*)
+  const selectedExcursion = mallNodeImageMap[currentNodeId] || null;
 
   return (
     <div className="videowall">
       <div className="videowall-header">
-        <h3 className="videowall-title">📺 VideoWall — {data.country}</h3>
+        <h3 className="videowall-title">
+          📺 VideoWall — {selectedExcursion ? selectedExcursion.title : data.country}
+        </h3>
         <div className="preset-buttons">
           <button
             className={`preset-btn ${preset === 1 ? 'active' : ''}`}
@@ -167,7 +187,7 @@ export function VideoWall({ currentNodeId }: VideoWallProps) {
             className={`preset-btn ${preset === 2 ? 'active' : ''}`}
             onClick={() => setPreset(2)}
           >
-            P2 Banner
+            P2 Mosaico
           </button>
           <button
             className={`preset-btn ${preset === 3 ? 'active' : ''}`}
@@ -221,7 +241,7 @@ export function VideoWall({ currentNodeId }: VideoWallProps) {
             );
           }
 
-          // Preset 1: todos apagados (pero encendidos si el toggle está on)
+          // Preset 1: todos apagados
           if (preset === 1) {
             return (
               <div key={i} className="cts-screen cts-screen-off">
@@ -236,8 +256,33 @@ export function VideoWall({ currentNodeId }: VideoWallProps) {
             );
           }
 
-          // Preset 2: banner scrolling
+          // Preset 2: if excursion selected → mosaic; otherwise → banner
           if (preset === 2) {
+            if (selectedExcursion) {
+              // Mosaic mode: each monitor shows a piece of the image
+              const col = i % 9;
+              const row = Math.floor(i / 9);
+              return (
+                <div key={i} className="cts-screen cts-screen-mosaic">
+                  <div className="cts-header" style={{ background: selectedExcursion.color + '30' }}>
+                    <span className="cts-id" style={{ color: selectedExcursion.color }}>{ctsLabel}</span>
+                    <span className="cts-live" style={{ color: selectedExcursion.color }}>● LIVE</span>
+                  </div>
+                  <div className="cts-content cts-content-mosaic">
+                    <div
+                      className="cts-mosaic-piece"
+                      style={{
+                        backgroundImage: `url(${basePath}${selectedExcursion.image})`,
+                        backgroundSize: '900% 200%',
+                        backgroundPosition: `${(col / 8) * 100}% ${(row / 1) * 100}%`,
+                      }}
+                    />
+                  </div>
+                </div>
+              );
+            }
+
+            // Default banner mode
             return (
               <div key={i} className="cts-screen cts-screen-banner">
                 <div className="cts-header cts-header-banner">
@@ -254,8 +299,37 @@ export function VideoWall({ currentNodeId }: VideoWallProps) {
             );
           }
 
-          // Preset 3: contenido CTS
-          const basePath = import.meta.env.BASE_URL;
+          // Preset 3: if excursion selected → all monitors show that image; otherwise → individual CTS
+          if (selectedExcursion) {
+            return (
+              <div
+                key={i}
+                className="cts-screen cts-screen-image"
+                style={{
+                  borderColor: selectedExcursion.color + '60',
+                  animationDelay: `${i * 0.05}s`,
+                }}
+              >
+                <div className="cts-header" style={{ background: selectedExcursion.color + '30' }}>
+                  <span className="cts-id" style={{ color: selectedExcursion.color }}>{ctsLabel}</span>
+                  <span className="cts-live">● LIVE</span>
+                </div>
+                <div className="cts-content cts-content-with-image">
+                  <img
+                    src={`${basePath}${selectedExcursion.image}`}
+                    alt={selectedExcursion.title}
+                    className="cts-image"
+                  />
+                  <div className="cts-image-overlay">
+                    <span className="cts-title" style={{ color: '#fff', textShadow: '0 1px 4px rgba(0,0,0,0.8)' }}>{selectedExcursion.title}</span>
+                    <span className="cts-subtitle" style={{ color: '#ddd', textShadow: '0 1px 3px rgba(0,0,0,0.8)' }}>{selectedExcursion.subtitle}</span>
+                  </div>
+                </div>
+              </div>
+            );
+          }
+
+          // Default P3: individual CTS cards
           const hasImage = !!ad.image;
 
           return (
