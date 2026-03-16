@@ -92,15 +92,12 @@ export function EndScreen({ story, finalNodeId, history, onRestart, onGoBack }: 
           </div>
 
           {/* Indiana Jones banner */}
-          <div className="indy-banner-wrapper" onClick={onRestart}>
+          <div className="indy-banner-wrapper" onClick={onRestart} title="Volver a empezar">
             <img
               src={`${basePath}images/indy-banner.png`}
-              alt="Indiana Jones"
+              alt="Indiana Jones - Volver a empezar"
               className="indy-banner"
             />
-            <div className="indy-banner-cta">
-              <span>🔄 VOLVER A EMPEZAR</span>
-            </div>
           </div>
         </>
       ) : (
