@@ -135,7 +135,7 @@ function getCountryFromNodeId(nodeId: string): string | null {
   return null;
 }
 
-type Preset = 1 | 2 | 3;
+type Preset = 1 | 2 | 3 | 4;
 
 interface VideoWallProps {
   currentNodeId: string;
@@ -143,7 +143,7 @@ interface VideoWallProps {
 
 export function VideoWall({ currentNodeId }: VideoWallProps) {
   const country = getCountryFromNodeId(currentNodeId);
-  const [preset, setPreset] = useState<Preset>(3);
+  const [preset, setPreset] = useState<Preset>(4);
   const [disabledCTS, setDisabledCTS] = useState<Set<number>>(new Set());
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
 
@@ -202,11 +202,17 @@ export function VideoWall({ currentNodeId }: VideoWallProps) {
             className={`preset-btn ${preset === 2 ? 'active' : ''}`}
             onClick={() => setPreset(2)}
           >
-            P2 Mosaico
+            P2 Full
           </button>
           <button
             className={`preset-btn ${preset === 3 ? 'active' : ''}`}
             onClick={() => setPreset(3)}
+          >
+            P2 Natural
+          </button>
+          <button
+            className={`preset-btn ${preset === 4 ? 'active' : ''}`}
+            onClick={() => setPreset(4)}
           >
             P3 CTS
           </button>
@@ -234,7 +240,7 @@ export function VideoWall({ currentNodeId }: VideoWallProps) {
 
       {/* Grid fija de 18 monitores — siempre 9x2 */}
       <div
-        className={`videowall-canvas videowall-cts ${preset === 1 ? 'videowall-off-grid' : preset === 2 ? 'videowall-banner-grid' : ''}`}
+        className={`videowall-canvas videowall-cts ${preset === 1 ? 'videowall-off-grid' : (preset === 2 || preset === 3) ? 'videowall-banner-grid' : ''}`}
         style={{ gridTemplateColumns: 'repeat(9, 1fr)' }}
       >
         {data.ads.map((ad, i) => {
@@ -323,7 +329,60 @@ export function VideoWall({ currentNodeId }: VideoWallProps) {
             );
           }
 
-          // Preset 3: if excursion selected → all monitors show that video; otherwise → individual CTS
+          // Preset 3: Natural mosaic — stretched video compensating for bezels between monitors
+          if (preset === 3) {
+            if (selectedExcursion) {
+              // Bezel = gap (4px) + border (2px each side) = 8px between monitors
+              const bezel = 8;
+              const col = i % 9;
+              const row = Math.floor(i / 9);
+              return (
+                <div key={i} className="cts-screen cts-screen-mosaic">
+                  <div className="cts-header" style={{ background: selectedExcursion.color + '30' }}>
+                    <span className="cts-id" style={{ color: selectedExcursion.color }}>{ctsLabel}</span>
+                    <span className="cts-live" style={{ color: selectedExcursion.color }}>● LIVE</span>
+                  </div>
+                  <div className="cts-content cts-content-mosaic">
+                    <div className="cts-mosaic-piece" style={{ overflow: 'hidden' }}>
+                      <video
+                        ref={el => { videoRefs.current[i] = el; }}
+                        src={`${basePath}${selectedExcursion.video}`}
+                        muted
+                        loop
+                        autoPlay
+                        playsInline
+                        style={{
+                          width: `calc(900% + ${8 * bezel}px)`,
+                          height: `calc(200% + ${1 * bezel}px)`,
+                          objectFit: 'cover',
+                          marginLeft: `calc(${-col * 100}% - ${col * bezel}px)`,
+                          marginTop: `calc(${-row * 100}% - ${row * bezel}px)`,
+                        }}
+                      />
+                    </div>
+                  </div>
+                </div>
+              );
+            }
+
+            // Default banner mode when no excursion selected
+            return (
+              <div key={i} className="cts-screen cts-screen-banner">
+                <div className="cts-header cts-header-banner">
+                  <span className="cts-id" style={{ color: data.banner.color }}>{ctsLabel}</span>
+                  <span className="cts-live" style={{ color: data.banner.color }}>● LIVE</span>
+                </div>
+                <div className="cts-content cts-content-banner">
+                  <div className="banner-scroll-mini" style={{ color: data.banner.color }}>
+                    <span>{data.banner.text}</span>
+                    <span>{data.banner.text}</span>
+                  </div>
+                </div>
+              </div>
+            );
+          }
+
+          // Preset 4: if excursion selected → all monitors show that video; otherwise → individual CTS
           if (selectedExcursion) {
             return (
               <div

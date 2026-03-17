@@ -1184,9 +1184,9 @@ body::after {
 .explorer-walker {
   position: absolute;
   bottom: 2px;
-  /* Walk only between the title text and the Volver button */
-  left: 35%;
-  right: 15%;
+  /* Walk between just after "Palma" text and before "Volver" button */
+  left: 40%;
+  right: 20%;
   height: 34px;
   pointer-events: none;
   overflow: hidden;
