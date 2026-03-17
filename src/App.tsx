@@ -52,6 +52,9 @@ function App() {
       <header className="app-header">
         <h1>✈️ Aena La Aventura Gráfica</h1>
         <p className="subtitle">powered by Admira</p>
+        <button className="replay-intro-btn" onClick={handleReplayIntro}>
+          🎬 Ver intro
+        </button>
       </header>
       <button className="mute-btn" onClick={toggleMute}>
         {muted ? '🔇' : '🔊'}
@@ -59,9 +62,6 @@ function App() {
       <main>
         <StoryFlow story={demoStory} />
       </main>
-      <button className="replay-intro-btn" onClick={handleReplayIntro}>
-        🎬 Ver intro
-      </button>
     </div>
   );
 }
